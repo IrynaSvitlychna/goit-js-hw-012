@@ -29,7 +29,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 //     progressBarColor: '#B5EA7C',
 //     position: 'topRight',
 //   }; 
-
+ 
 const API_KEY = '41942157-8ce243761fb563c2a1b85d8a4';
 const API_BASE_URL = 'https://pixabay.com/api/';
 axios.defaults.baseURL = API_BASE_URL;
