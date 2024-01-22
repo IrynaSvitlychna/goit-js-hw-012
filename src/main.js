@@ -8,27 +8,12 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import axios from "axios";
 
-// const API_KEY = '77536933c9b583c79fa8689264f649aa4b326b2e';
 
 const lightbox = new SimpleLightbox('.gallery a', {
-    overlayOpacity: 0.5,
+  overlayOpacity: 0.5,
   showCounter: false,
-    // captionsData: 'alt',
-    // captionDelay: 250,
-    // className: 'lightbox-on',
   });
 
-// const errorOptions = {
-//     title: '',
-//     iconUrl: `${xOctagon}`,
-//     backgroundColor: '#EF4040',
-//     titleColor: '#fff',
-//     messageColor: '#fff',
-//     theme: 'dark',
-//     messageSize: '16px',
-//     progressBarColor: '#B5EA7C',
-//     position: 'topRight',
-//   }; 
  
 const API_KEY = '41942157-8ce243761fb563c2a1b85d8a4';
 const API_BASE_URL = 'https://pixabay.com/api/';
@@ -36,7 +21,6 @@ axios.defaults.baseURL = API_BASE_URL;
 
 const searchingForm = document.querySelector('#form');
 const searchInput = document.querySelector('#searchInput');
-// const searchButton = document.querySelector('.search-btn');
 const gallery = document.querySelector('.gallery');
 const loadImagesButton = document.querySelector('#loadBtn');
 const loader = document.querySelector('.loader');
@@ -70,56 +54,11 @@ async function fetchAndRenderImages() {
       galleryCreation(images.hits);
       handleLoadMoreButton(images.totalHits);
     } catch (error) {
-        console.log(error);
         showMessage('Oops... Something went wrong');
     } finally {
       loader.classList.add('hide');
     }
   }
-
-//  function requestImages(event) {
-//     event.preventDefault();
-//     gallery.innerHTML = '';
-//     addLoading();
-    
-//     const searchingOptions = new URLSearchParams({
-//         key: '41942157-8ce243761fb563c2a1b85d8a4',
-//         q: searchInput.value,
-//         orientation: 'horizontal',
-//         per_page: 40,
-//         image_type: 'photo',
-//         safesearch: true,
-//       });
-      
-//     fetch(`https://pixabay.com/api/?${searchingOptions}`)
-//     .then(response => {
-     
-//       return response.json();
-//     })
-//     .then(api => {
-//       const imagesArray = api.hits;
-//       if (imagesArray.length === 0) {
-//         throw new Error(
-//           `There are no images matching your search query. Please try again!`
-//         );
-//       }
-      
-//       galleryCreation(imagesArray);
-//       currentPage ++;
-//       removeLoading();
-//     })     
-//     .catch(error => {
-//       console.log(error);
-//       iziToast.error(
-//         errorOptions,
-//         (errorOptions.message = `Sorry! ${error.message}`)
-//       );
-//       removeLoading();
-//     });
-// }
-
-//  loadImagesButton.addEventListener("click", requestImages);
-
 
 function galleryCreation(images) {
     currentPage ++;
@@ -132,67 +71,33 @@ function galleryCreation(images) {
           `
           <li class="gallery-item">
             <a href="${largeImageURL}">
-              <img src="${webformatURL}" alt="${tags}" />
+              <img  class="gallery-image" src="${webformatURL}" alt="${tags}" />
             </a>
             <div class="image-desc">
-              <div class="image-desc-item">
-                <div class="image-desc-label">Likes</div>
-                <div>${likes}</div>
-              </div>
-              <div class="image-desc-item">
-                 <div class="image-desc-label">Views</div>
-                 <div>${views}</div>
-              </div>
-              <div class="image-desc-item">
-                <div class="image-desc-label">Comments</div>
-                <div>${comments}</div>
-              </div>
-              <div class="image-desc-item">
-                <div class="image-desc-label">Downloads</div>
-                <div>${downloads}</div>
-              </div>
+              <ul class ="gallery-item-description-list">
+                <li class="image-desc-item">
+                  <div class="image-desc-label">Likes</div>
+                  <div>${likes}</div>
+                </li>
+                <li class="image-desc-item">
+                   <div class="image-desc-label">Views</div>
+                   <div>${views}</div>
+                </li>
+                <li class="image-desc-item">
+                  <div class="image-desc-label">Comments</div>
+                  <div>${comments}</div>
+                </li>
+                <li class="image-desc-item">
+                  <div class="image-desc-label">Downloads</div>
+                  <div>${downloads}</div>
+                </li>
+              </ul>
             </div>
           </li>
           `,
         ''
       );
 
-    // const markup = images
-    //   .map(({  webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-    //     return `<li class="gallery-item"><div class='image-wrapper'>
-    // <a class="gallery-link" href="${largeImageURL}">
-    //   <img
-    //     class="gallery-image"
-    //     src="${webformatURL}"
-    //     alt="${tags}"
-    //     width="360"
-    //     height="200"
-    //   />
-    // </a>
-    // <div class="gallery-item-description">
-    //     <ul class='gallery-item-description-list'>
-    //         <li class='gallery-description-list-item'>
-    //             <p class='description'>Likes</p>
-    //             <p class='quantity'>${likes}</p>
-    //         </li>
-    //         <li class='gallery-description-list-item'>
-    //             <p class='description'>Views</p>
-    //             <p class='quantity'>${views}</p>
-    //         </li>
-    //         <li class='gallery-description-list-item'>
-    //             <p class='description'>Comments</p>
-    //             <p class='quantity'>${comments}</p>
-    //         </li>
-    //         <li class='gallery-description-list-item'>
-    //             <p class='description'>Downloads</p>
-    //             <p class='quantity'>${downloads}</p>
-    //         </li>
-    //     </ul>
-    //   </div>
-    // </div>
-    // </li>`;
-    // })
-    //   .join('');
     gallery.insertAdjacentHTML('beforeend', markup);
     scrollOffset = document
     .querySelector('.gallery-item')
@@ -250,19 +155,7 @@ function galleryCreation(images) {
     });
   }
 
-//   function addLoading() {
-//     container.insertAdjacentHTML('afterbegin', '<div class="loader"></div>');
-//     searchButton.disabled = true;
-//     searchButton.classList.add('search-btn-disabled');
-//   }
 
-//   function removeLoading() {
-//     const loader = document.querySelector('.loader');
-//     loader.remove();
-//     searchButton.disabled = false;
-//     searchButton.classList.remove('search-btn-disabled');
-//     searchingForm.reset();
-//   }
  
 
     
