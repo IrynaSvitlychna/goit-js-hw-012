@@ -31,11 +31,12 @@ const lightbox = new SimpleLightbox('.gallery a', {
 //   }; 
 
 const API_KEY = '41942157-8ce243761fb563c2a1b85d8a4';
-axios.defaults.baseURL = 'https://pixabay.com/api/';
+const API_BASE_URL = 'https://pixabay.com/api/';
+axios.defaults.baseURL = API_BASE_URL;
 
 const searchingForm = document.querySelector('#form');
 const searchInput = document.querySelector('#searchInput');
-const searchButton = document.querySelector('.search-btn');
+// const searchButton = document.querySelector('.search-btn');
 const gallery = document.querySelector('.gallery');
 const loadImagesButton = document.querySelector('#loadBtn');
 const loader = document.querySelector('.loader');
@@ -69,6 +70,7 @@ async function fetchAndRenderImages() {
       galleryCreation(images.hits);
       handleLoadMoreButton(images.totalHits);
     } catch (error) {
+        console.log(error);
         showMessage('Oops... Something went wrong');
     } finally {
       loader.classList.add('hide');
